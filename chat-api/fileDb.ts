@@ -27,11 +27,11 @@ const fileDb = {
         await fileDb.init();
         return data.reverse();
     },
-    async addNewProduct(productToAdd: MessageWithoutId) {
-        const newProduct = {id: crypto.randomUUID(), ...productToAdd};
-        data.push(newProduct);
+    async addNewProduct(messageToAdd: MessageWithoutId) {
+        const newMesasage = {id: crypto.randomUUID(), ...messageToAdd};
+        data.push(newMesasage);
         await this.save();
-        return newProduct;
+        return newMesasage;
     },
     async save () {
         return fs.writeFile(filename, JSON.stringify(data));

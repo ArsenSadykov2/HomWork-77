@@ -46,8 +46,10 @@ export const messageSlice = createSlice({
             .addCase(createMessage.pending, (state) => {
                 state.createLoading = true;
             })
-            .addCase(createMessage.fulfilled, (state) => {
+            .addCase(createMessage.fulfilled, (state, {payload: newMessage}) => {
+                state.items.unshift(newMessage  );
                 state.createLoading = false;
+                state.items.push(newMessage);
             })
             .addCase(createMessage.rejected, (state) => {
                 state.createLoading = false;
@@ -60,3 +62,4 @@ export const messagesReducer = messageSlice.reducer;
 export const selectMessages = (state: RootState) => state.messages.items;
 export const selectOneMessage = (state: RootState) => state.messages.item;
 export const selectMessagesLoading = (state: RootState) => state.messages.fetchLoading;
+export const selectCreateLoading = (state: RootState) => state.messages.createLoading;

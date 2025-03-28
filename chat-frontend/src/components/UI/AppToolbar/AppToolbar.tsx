@@ -15,7 +15,7 @@ const AppToolbar = () => {
             <Toolbar>
                 <Container maxWidth="xl">
                     <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
-                        <Link to="/">CompStore</Link>
+                        <Link to="/">List of Messages</Link>
                     </Typography>
                 </Container>
             </Toolbar>

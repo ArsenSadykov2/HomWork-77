@@ -24,8 +24,20 @@ messageRouter.post('/', imagesUpload.single('image'), async (req, res) => {
         image: req.file ? 'images/' + req.file.filename : null,
     };
 
-    const savedNewProduct = await fileDb.addNewProduct(newProduct);
-    res.send(savedNewProduct);
+    if(newProduct.description.trim() !== "" && req.body.author.trim() !== "") {
+        const savedNewProduct = await fileDb.addNewProduct(newProduct);
+        res.send(savedNewProduct);
+    }else{
+        res.status(400).json({
+            error: 'Fields cannot be empty or contain only spaces!',
+        });
+        return;
+    }
+
+        console.error('Error in POST /:', );
+        res.status(500).json({ error: 'Internal server error!' });
+
+
 });
 
 export default messageRouter;

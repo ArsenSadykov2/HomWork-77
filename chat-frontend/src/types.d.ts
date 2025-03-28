@@ -2,7 +2,7 @@ export interface Message {
     id: string;
     author: string;
     description: string;
-    image?: string | null;
+    image: string | null;
 }
 
 export interface MessageMutation {

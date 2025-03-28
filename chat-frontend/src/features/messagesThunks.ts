@@ -1,12 +1,12 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {Message, MessageMutation} from "../types";
+import {Message} from "../types";
 import axiosAPI from "../axiosApi.ts";
 
 export const fetchAllMessages = createAsyncThunk<Message[], void>(
     'messages/fetchAllMessages',
     async () => {
         const response = await axiosAPI.get<Message[]>('/messages');
-        return response.data;
+        return response.data || null;
     }
 );
 
@@ -18,20 +18,19 @@ export const fetchMessageById = createAsyncThunk<Message, string>(
     }
 );
 
-
-export const createMessage = createAsyncThunk<void, MessageMutation>(
+export const createMessage = createAsyncThunk<Message, Message>(
     'messages/createMessage',
     async (messageToAdd) => {
         const formData = new FormData();
-        const keys = Object.keys(messageToAdd) as (keyof MessageMutation)[];
+        formData.append('author', messageToAdd.author);
+        formData.append('description', messageToAdd.description);
 
-        keys.forEach(key => {
-            const value = messageToAdd[key] as string;
-            if (value !== null) {
-                formData.append(key, value);
-            }
-        });
+        if (messageToAdd.image) {
+            formData.append('image', messageToAdd.image);
+        }
 
-        await axiosAPI.post('/messages', formData);
+        const response = await axiosAPI.post<Message>('/messages', formData);
+        return response.data;
+
     }
 );
