@@ -29,7 +29,7 @@ const fileDb = {
     },
     async addNewProduct(messageToAdd: MessageWithoutId) {
         const newMesasage = {id: crypto.randomUUID(), ...messageToAdd};
-        data.push(newMesasage);
+        data.reverse().push(newMesasage);
         await this.save();
         return newMesasage;
     },
