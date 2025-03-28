@@ -30,7 +30,7 @@ export const createMessage = createAsyncThunk<Message, Message>(
         }
 
         const response = await axiosAPI.post<Message>('/messages', formData);
-        return response.data;
+        return response.data || null;
 
     }
 );

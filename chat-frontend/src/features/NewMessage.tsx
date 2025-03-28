@@ -13,8 +13,8 @@ const NewMessage = () => {
     const onCreateNewProduct = async (message: Message) => {
         try {
             await dispatch(createMessage(message));
-            await dispatch(fetchAllMessages());
             toast.success("Product was successfully created!");
+            await dispatch(fetchAllMessages());
             navigate('/');
         } catch (e) {
             console.error(e);

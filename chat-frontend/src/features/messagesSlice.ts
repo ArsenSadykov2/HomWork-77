@@ -34,6 +34,9 @@ export const messageSlice = createSlice({
                 state.items = messages;
                 state.fetchLoading = false;
             })
+            .addCase(fetchAllMessages.rejected, (state) => {
+                state.fetchLoading = false;
+            })
 
             .addCase(fetchMessageById.pending, (state) => {
                 state.fetchLoading = true;
@@ -47,9 +50,8 @@ export const messageSlice = createSlice({
                 state.createLoading = true;
             })
             .addCase(createMessage.fulfilled, (state, {payload: newMessage}) => {
-                state.items.unshift(newMessage  );
-                state.createLoading = false;
                 state.items.push(newMessage);
+                state.createLoading = false;
             })
             .addCase(createMessage.rejected, (state) => {
                 state.createLoading = false;
